@@ -11,15 +11,10 @@ import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_blogpessoal',
-      entities: [Postagem, Tema, Usuario],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+	    useClass: ProdService,
+      imports: [ConfigModule],
     }),
     PostagemModule,
     TemaModule,
